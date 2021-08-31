@@ -1,20 +1,24 @@
 // Countries name api called 
+
 const loadCountries = () => {
     fetch('https://restcountries.eu/rest/v2/all')
     .then(res => res.json())
     .then(data => displayCountries(data))
+    
 }
+document.getElementById('spinner').style.display = 'none';
 loadCountries();
+document.getElementById('spinner').style.display = 'block';
 let serial = 0;
 const displayCountries = data => {
     const countriesElement = document.getElementById('countries');
     for(const country of data){
-        console.log(country)
         serial++;
         const div = document.createElement('div');
         div.classList.add('country')
         div.innerHTML = `<span>${serial}</span><h4>Name: ${country.name}</h4> <p>Capital: ${country.capital}</p> <span>Alpha2Code: ${country.alpha2Code}</span> <button class = "btn btn-success mt-4" onclick = "loadDetails('${country.name}')" data-bs-toggle="modal" data-bs-target="#exampleModal">Details</button>`;
         countriesElement.appendChild(div);
+        document.getElementById('spinner').style.display = 'none';
     }
 }
 const loadDetails = name => {
